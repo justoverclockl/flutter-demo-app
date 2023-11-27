@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'book.dart';
+import 'bookDetail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: BooksScreen(),
@@ -50,6 +51,11 @@ class _LibriScreenState extends State<BooksScreen> {
             return Card(
               elevation: 2,
               child: ListTile(
+                onTap: () {
+                  MaterialPageRoute route = MaterialPageRoute(
+                      builder: (_) => BookDetail(books[position]));
+                  Navigator.push(context, route);
+                },
                 leading: (books[position].cover != '')
                   ? Image.network(books[position].cover) : const FlutterLogo(),
                 title: Text(books[position].title),
