@@ -47,7 +47,15 @@ class _LibriScreenState extends State<BooksScreen> {
       body: ListView.builder(
           itemCount: books.length,
           itemBuilder: (BuildContext context, int position) {
-            return Text(books[position].title);
+            return Card(
+              elevation: 2,
+              child: ListTile(
+                leading: (books[position].cover != '')
+                  ? Image.network(books[position].cover) : const FlutterLogo(),
+                title: Text(books[position].title),
+                subtitle: Text(books[position].authors),
+              ),
+            );
           },
       )
     );
