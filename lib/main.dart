@@ -32,6 +32,8 @@ class BooksScreen extends StatefulWidget {
 }
 
 class _LibriScreenState extends State<BooksScreen> {
+  Icon icon = const Icon(Icons.search);
+  Widget searchWidget = const Text('Libri');
   String result = '';
   List<Book> books = []; 
 
@@ -44,7 +46,31 @@ class _LibriScreenState extends State<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Libri')),
+      appBar: AppBar(
+          title: searchWidget,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (icon.icon == Icons.search) {
+                      icon = const Icon(Icons.cancel);
+                      searchWidget = TextField(
+                        onSubmitted: (searchText) => getBooks(searchText),
+                        textInputAction: TextInputAction.search,
+                        style: TextStyle(color: Colors.blue, fontSize: 20),
+                      );
+                    } else {
+                      setState(() {
+                        icon = const Icon(Icons.search);
+                        searchWidget = const Text('Libri');
+                      });
+                    }
+                  });
+                },
+                icon: icon
+            )
+          ],
+      ),
       body: ListView.builder(
           itemCount: books.length,
           itemBuilder: (BuildContext context, int position) {
